@@ -1,17 +1,17 @@
 {
     "builds": [
       {
-        "src": "angular.json",
+        "src": "package.json",
         "use": "@vercel/static-build",
         "config": {
-          "distDir": "dist"
+          "distDir": "dist/taskulardo_frontend"
         }
       }
     ],
     "routes": [
       {
         "src": "/(.*)",
-        "dest": "/dist/$1"
+        "dest": "/dist/taskulardo_frontend/$1"
       }
     ]
   }
