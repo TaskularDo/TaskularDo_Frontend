@@ -11,7 +11,7 @@
     "routes": [
       {
         "src": "/(.*)",
-        "dest": "/dist/taskulardo_frontend/$1"
+        "dest": "/dist/taskulardo_frontend/index.html"
       }
     ]
   }
