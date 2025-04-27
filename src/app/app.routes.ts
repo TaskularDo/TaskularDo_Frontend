@@ -13,8 +13,13 @@ import {
 export const routes: Routes = [
   {
     path: '',
+    redirectTo: '/home',
+    pathMatch: 'full'
+  },
+  {
+    path: 'dashboard',
     component: DefaultLayoutComponent,
-    children: [{ path: 'dashboard', component: DashboardComponent }],
+    children: [{ path: '', component: DashboardComponent }],  
   },
   {
     path: '',
