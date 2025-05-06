@@ -1,18 +1,13 @@
 {
-    "builds": [
-      {
-        "src": "package.json",
-        "use": "@vercel/static-build",
-        "config": {
-          "distDir": "dist"
-        }
-      }
-    ],
-    "routes": [
-      {
-        "src": "/(.*)",
-        "dest": "/dist/index.html"
-      }
-    ]
-  }
-  
+  "functions": {
+    "api/index.mjs": {
+      "runtime": "nodejs18.x"
+    }
+  },
+  "routes": [
+    {
+      "src": "/(.*)",
+      "dest": "api/index.mjs"
+    }
+  ]
+}
