@@ -13,7 +13,7 @@
         "build": {
           "builder": "@angular-devkit/build-angular:application",
           "options": {
-            "outputPath": "dist/taskulardo_frontend",
+            "outputPath": "dist/taskulardo_frontend/browser",
             "index": "src/index.html",
             "browser": "src/main.ts",
             "polyfills": ["zone.js"],
@@ -21,40 +21,53 @@
             "assets": [
               {
                 "glob": "**/*",
-                "input": "public"
+                "input": "public",
+                "output": "/"
               }
             ],
             "styles": ["src/styles.css"],
-            "scripts": [],
-            "server": "src/main.server.ts",
-            "outputMode": "server",
-            "ssr": {
-              "entry": "src/server.ts"
-            }
+            "scripts": []
           },
           "configurations": {
             "production": {
               "budgets": [
                 {
                   "type": "initial",
-                  "maximumWarning": "500kB",
-                  "maximumError": "1MB"
+                  "maximumWarning": "500kb",
+                  "maximumError": "1mb"
                 },
                 {
                   "type": "anyComponentStyle",
-                  "maximumWarning": "12kB",
-                  "maximumError": "16kB"
+                  "maximumWarning": "12kb",
+                  "maximumError": "16kb"
                 }
               ],
               "outputHashing": "all"
             },
             "development": {
-              "optimization": true,
+              "optimization": false,
+              "sourceMap": true,
               "extractLicenses": false,
-              "sourceMap": true
+              "vendorChunk": true,
+              "buildOptimizer": false
             }
           },
           "defaultConfiguration": "production"
+        },
+        "serve": {
+          "builder": "@angular-devkit/build-angular:dev-server",
+          "options": {
+            "browserTarget": "taskulardo_frontend:build"
+          },
+          "configurations": {
+            "production": {
+              "browserTarget": "taskulardo_frontend:build:production"
+            },
+            "development": {
+              "browserTarget": "taskulardo_frontend:build:development"
+            }
+          },
+          "defaultConfiguration": "development"
         },
         "server": {
           "builder": "@angular-devkit/build-angular:server",
@@ -62,19 +75,45 @@
             "outputPath": "dist/taskulardo_frontend/server",
             "main": "src/main.server.ts",
             "tsConfig": "tsconfig.server.json"
-          }
-        },
-        "serve": {
-          "builder": "@angular-devkit/build-angular:dev-server",
+          },
           "configurations": {
             "production": {
-              "buildTarget": "taskulardo_frontend:build:production"
+              "outputHashing": "media",
+              "sourceMap": false,
+              "optimization": true
             },
             "development": {
-              "buildTarget": "taskulardo_frontend:build:development"
+              "sourceMap": true,
+              "optimization": false
+            }
+          },
+          "defaultConfiguration": "production"
+        },
+        "serve-ssr": {
+          "builder": "@nguniversal/builders:ssr-dev-server",
+          "options": {
+            "browserTarget": "taskulardo_frontend:build",
+            "serverTarget": "taskulardo_frontend:server"
+          },
+          "configurations": {
+            "production": {
+              "browserTarget": "taskulardo_frontend:build:production",
+              "serverTarget": "taskulardo_frontend:server:production"
+            },
+            "development": {
+              "browserTarget": "taskulardo_frontend:build:development",
+              "serverTarget": "taskulardo_frontend:server:development"
             }
           },
           "defaultConfiguration": "development"
+        },
+        "prerender": {
+          "builder": "@angular-devkit/build-angular:prerender",
+          "options": {
+            "browserTarget": "taskulardo_frontend:build:production",
+            "serverTarget": "taskulardo_frontend:server:production",
+            "routes": ["/"]
+          }
         },
         "extract-i18n": {
           "builder": "@angular-devkit/build-angular:extract-i18n"
@@ -82,12 +121,15 @@
         "test": {
           "builder": "@angular-devkit/build-angular:karma",
           "options": {
+            "main": "src/test.ts",
             "polyfills": ["zone.js", "zone.js/testing"],
             "tsConfig": "tsconfig.spec.json",
+            "karmaConfig": "karma.conf.js",
             "assets": [
               {
                 "glob": "**/*",
-                "input": "public"
+                "input": "public",
+                "output": "/"
               }
             ],
             "styles": ["src/styles.css"],
@@ -98,6 +140,6 @@
     }
   },
   "cli": {
-    "analytics": "4b01d91a-5953-4394-b519-1e93aa14fe6d"
+    "analytics": false
   }
 }

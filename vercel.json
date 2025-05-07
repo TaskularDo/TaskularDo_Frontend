@@ -2,14 +2,14 @@
   "version": 2,
   "builds": [
     {
-      "src": "dist/taskulardo_frontend/server/main.mjs",
+      "src": "package.json",
       "use": "@vercel/node"
     }
   ],
   "routes": [
     {
       "src": "/(.*)",
-      "dest": "dist/taskulardo_frontend/server/main.mjs"
+      "dest": "/dist/taskulardo_frontend/server/main.js"
     }
   ]
 }
