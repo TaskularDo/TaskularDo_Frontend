@@ -3,8 +3,8 @@
   "version": "0.0.0",
   "scripts": {
     "ng": "ng",
-    "start": "ng serve",
-    "build": "ng build",
+    "build:ssr": "ng build && ng run taskulardo_frontend:server",
+    "start": "node dist/taskulardo_frontend/server/main.js",
     "watch": "ng build --watch --configuration development",
     "test": "ng test",
     "serve:ssr:taskulardo_frontend": "node dist/taskulardo_frontend/server/server.mjs"
